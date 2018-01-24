@@ -1,14 +1,14 @@
 
 
-CREATE TABLE Transcript(
+CREATE TABLE TRANSCRIPTS(
 	idT  INTEGER AUTO_INCREMENT NOT NULL ,
 	nom  TEXT NOT NULL ,
 	idG  INTEGER NOT NULL ,
 	idP  INTEGER NOT NULL ,
 	PRIMARY KEY (idT) ,
 	
-	FOREIGN KEY (idG) REFERENCES Gene(idG),
-	FOREIGN KEY (idP) REFERENCES Proteines(idP)
+	FOREIGN KEY (idG) REFERENCES GENES(idG),
+	FOREIGN KEY (idP) REFERENCES PROTEINES(idP)
 );
 
 
@@ -26,7 +26,7 @@ CREATE TABLE Conditions(
 );
 
 
-CREATE TABLE Gene(
+CREATE TABLE GENES(
 	idG         INTEGER AUTO_INCREMENT NOT NULL ,
 	nom         TEXT NOT NULL ,
 	locus_tag   TEXT ,
@@ -44,16 +44,19 @@ CREATE TABLE Maladies(
 );
 
 
-CREATE TABLE Proteines(
-	idP          INTEGER AUTO_INCREMENT NOT NULL ,
-	nom          TEXT NOT NULL ,
-	poids        REAL ,
-	longueur     INTEGER ,
-	ref_uniprot  TEXT ,
-	idT          INTEGER NOT NULL ,
+CREATE TABLE PROTEINES(
+	idP                 INTEGER AUTO_INCREMENT NOT NULL ,
+	nom                 TEXT NOT NULL ,
+	poids               REAL ,
+	longueur            INTEGER ,
+	UniProtKBSwissProt  TEXT ,
+	UniProtKBTrEMBL     TEXT ,
+	GOA                 TEXT ,
+	InterPro            TEXT ,
+	idT                 INTEGER NOT NULL ,
 	PRIMARY KEY (idP) ,
 	
-	FOREIGN KEY (idT) REFERENCES Transcript(idT)
+	FOREIGN KEY (idT) REFERENCES TRANSCRIPTS(idT)
 );
 
 
@@ -109,7 +112,7 @@ CREATE TABLE Sequences(
 	idP  INTEGER NOT NULL ,
 	PRIMARY KEY (idS) ,
 	
-	FOREIGN KEY (idP) REFERENCES Proteines(idP)
+	FOREIGN KEY (idP) REFERENCES PROTEINES(idP)
 );
 
 
@@ -117,35 +120,13 @@ CREATE TABLE Interactions(
 	idI            INTEGER AUTO_INCREMENT NOT NULL ,
 	ref_PSIMI      TEXT NOT NULL ,
 	idP            INTEGER NOT NULL ,
-	idP_Proteines  INTEGER NOT NULL ,
+	idP_PROTEINES  INTEGER NOT NULL ,
 	idTI           INTEGER ,
 	PRIMARY KEY (idI) ,
 	
-	FOREIGN KEY (idP) REFERENCES Proteines(idP),
-	FOREIGN KEY (idP_Proteines) REFERENCES Proteines(idP),
+	FOREIGN KEY (idP) REFERENCES PROTEINES(idP),
+	FOREIGN KEY (idP_PROTEINES) REFERENCES PROTEINES(idP),
 	FOREIGN KEY (idTI) REFERENCES Type_interaction(idTI)
-);
-
-
-CREATE TABLE seq_primaire(
-	idS  INTEGER NOT NULL ,
-	PRIMARY KEY (idS) ,
-	
-	FOREIGN KEY (idS) REFERENCES Sequences(idS)
-);
-
-
-CREATE TABLE seq_alt(
-	idS  INTEGER NOT NULL ,
-	PRIMARY KEY (idS) ,
-	
-	FOREIGN KEY (idS) REFERENCES Sequences(idS)
-);
-
-
-CREATE TABLE Modif_posttrad(
-	idM  INTEGER AUTO_INCREMENT NOT NULL ,
-	PRIMARY KEY (idM)
 );
 
 
@@ -161,7 +142,7 @@ CREATE TABLE UniprotRef(
 	idP        INTEGER NOT NULL ,
 	PRIMARY KEY (accession) ,
 	
-	FOREIGN KEY (idP) REFERENCES Proteines(idP)
+	FOREIGN KEY (idP) REFERENCES PROTEINES(idP)
 );
 
 
@@ -173,7 +154,7 @@ CREATE TABLE Observation(
 	
 	FOREIGN KEY (idL) REFERENCES Laboratoire(idL),
 	FOREIGN KEY (idC) REFERENCES Conditions(idC),
-	FOREIGN KEY (idG) REFERENCES Gene(idG)
+	FOREIGN KEY (idG) REFERENCES GENES(idG)
 );
 
 
@@ -185,7 +166,7 @@ CREATE TABLE implication(
 	
 	FOREIGN KEY (idM) REFERENCES Maladies(idM),
 	FOREIGN KEY (idS) REFERENCES Sequences(idS),
-	FOREIGN KEY (idP) REFERENCES Proteines(idP)
+	FOREIGN KEY (idP) REFERENCES PROTEINES(idP)
 );
 
 
@@ -218,7 +199,7 @@ CREATE TABLE citation(
 	
 	FOREIGN KEY (idA) REFERENCES Articles(idA),
 	FOREIGN KEY (idM) REFERENCES Maladies(idM),
-	FOREIGN KEY (idP) REFERENCES Proteines(idP)
+	FOREIGN KEY (idP) REFERENCES PROTEINES(idP)
 );
 
 
@@ -229,18 +210,6 @@ CREATE TABLE Travaille(
 	
 	FOREIGN KEY (idC) REFERENCES Chercheuse(idC),
 	FOREIGN KEY (idL) REFERENCES Laboratoire(idL)
-);
-
-
-CREATE TABLE modification(
-	idS            INTEGER NOT NULL ,
-	idS_Sequences  INTEGER NOT NULL ,
-	idM            INTEGER NOT NULL ,
-	PRIMARY KEY (idS,idS_Sequences,idM) ,
-	
-	FOREIGN KEY (idS) REFERENCES Sequences(idS),
-	FOREIGN KEY (idS_Sequences) REFERENCES Sequences(idS),
-	FOREIGN KEY (idM) REFERENCES Modif_posttrad(idM)
 );
 
 
