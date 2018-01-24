@@ -1,13 +1,7 @@
-#------------------------------------------------------------
-#        Script SQLite  
-#------------------------------------------------------------
 
 
-#------------------------------------------------------------
-# Table: Transcript
-#------------------------------------------------------------
 CREATE TABLE Transcript(
-	idT  INTEGER autoincrement NOT NULL ,
+	idT  INTEGER AUTO_INCREMENT NOT NULL ,
 	nom  TEXT NOT NULL ,
 	idG  INTEGER NOT NULL ,
 	idP  INTEGER NOT NULL ,
@@ -18,31 +12,22 @@ CREATE TABLE Transcript(
 );
 
 
-#------------------------------------------------------------
-# Table: Laboratoire
-#------------------------------------------------------------
 CREATE TABLE Laboratoire(
-	idL       INTEGER autoincrement NOT NULL ,
+	idL       INTEGER AUTO_INCREMENT NOT NULL ,
 	nom       TEXT NOT NULL ,
 	acronyme  TEXT ,
 	PRIMARY KEY (idL)
 );
 
 
-#------------------------------------------------------------
-# Table: Conditions
-#------------------------------------------------------------
 CREATE TABLE Conditions(
-	idC  INTEGER autoincrement NOT NULL ,
+	idC  INTEGER AUTO_INCREMENT NOT NULL ,
 	PRIMARY KEY (idC)
 );
 
 
-#------------------------------------------------------------
-# Table: Gène
-#------------------------------------------------------------
 CREATE TABLE Gene(
-	idG          INTEGER autoincrement NOT NULL ,
+	idG          INTEGER AUTO_INCREMENT NOT NULL ,
 	nom          TEXT NOT NULL ,
 	tag_locus    TEXT NOT NULL ,
 	start        INTEGER ,
@@ -52,21 +37,15 @@ CREATE TABLE Gene(
 );
 
 
-#------------------------------------------------------------
-# Table: Maladies
-#------------------------------------------------------------
 CREATE TABLE Maladies(
-	idM  INTEGER autoincrement NOT NULL ,
+	idM  INTEGER AUTO_INCREMENT NOT NULL ,
 	nom  TEXT NOT NULL ,
 	PRIMARY KEY (idM)
 );
 
 
-#------------------------------------------------------------
-# Table: Protéines
-#------------------------------------------------------------
 CREATE TABLE Proteines(
-	idP          INTEGER autoincrement NOT NULL ,
+	idP          INTEGER AUTO_INCREMENT NOT NULL ,
 	nom          TEXT NOT NULL ,
 	poids        REAL ,
 	longueur     INTEGER ,
@@ -78,11 +57,8 @@ CREATE TABLE Proteines(
 );
 
 
-#------------------------------------------------------------
-# Table: Methodes_detection
-#------------------------------------------------------------
 CREATE TABLE Methodes_detection(
-	idMD    INTEGER autoincrement NOT NULL ,
+	idMD    INTEGER AUTO_INCREMENT NOT NULL ,
 	label   TEXT NOT NULL ,
 	idMD_1  INTEGER NOT NULL ,
 	PRIMARY KEY (idMD) ,
@@ -91,11 +67,8 @@ CREATE TABLE Methodes_detection(
 );
 
 
-#------------------------------------------------------------
-# Table: Chercheuse
-#------------------------------------------------------------
 CREATE TABLE Chercheuse(
-	idC  INTEGER autoincrement NOT NULL ,
+	idC  INTEGER AUTO_INCREMENT NOT NULL ,
 	nom  TEXT NOT NULL ,
 	idP  INTEGER NOT NULL ,
 	PRIMARY KEY (idC) ,
@@ -104,21 +77,15 @@ CREATE TABLE Chercheuse(
 );
 
 
-#------------------------------------------------------------
-# Table: Pays
-#------------------------------------------------------------
 CREATE TABLE Pays(
-	idP  INTEGER autoincrement NOT NULL ,
+	idP  INTEGER AUTO_INCREMENT NOT NULL ,
 	nom  TEXT NOT NULL ,
 	PRIMARY KEY (idP)
 );
 
 
-#------------------------------------------------------------
-# Table: Articles
-#------------------------------------------------------------
 CREATE TABLE Articles(
-	idA         INTEGER autoincrement NOT NULL ,
+	idA         INTEGER AUTO_INCREMENT NOT NULL ,
 	titre       TEXT NOT NULL ,
 	ref_pubmed  TEXT NOT NULL ,
 	annee       NUMERIC NOT NULL ,
@@ -129,21 +96,15 @@ CREATE TABLE Articles(
 );
 
 
-#------------------------------------------------------------
-# Table: Journaux
-#------------------------------------------------------------
 CREATE TABLE Journaux(
-	idJ  INTEGER autoincrement NOT NULL ,
+	idJ  INTEGER AUTO_INCREMENT NOT NULL ,
 	nom  TEXT NOT NULL ,
 	PRIMARY KEY (idJ)
 );
 
 
-#------------------------------------------------------------
-# Table: Sequences
-#------------------------------------------------------------
 CREATE TABLE Sequences(
-	idS  INTEGER autoincrement NOT NULL ,
+	idS  INTEGER AUTO_INCREMENT NOT NULL ,
 	seq  TEXT NOT NULL ,
 	idP  INTEGER NOT NULL ,
 	PRIMARY KEY (idS) ,
@@ -152,11 +113,8 @@ CREATE TABLE Sequences(
 );
 
 
-#------------------------------------------------------------
-# Table: Interactions
-#------------------------------------------------------------
 CREATE TABLE Interactions(
-	idI            INTEGER autoincrement NOT NULL ,
+	idI            INTEGER AUTO_INCREMENT NOT NULL ,
 	ref_PSIMI      TEXT NOT NULL ,
 	idP            INTEGER NOT NULL ,
 	idP_Proteines  INTEGER NOT NULL ,
@@ -169,9 +127,6 @@ CREATE TABLE Interactions(
 );
 
 
-#------------------------------------------------------------
-# Table: seq_primaire
-#------------------------------------------------------------
 CREATE TABLE seq_primaire(
 	idS  INTEGER NOT NULL ,
 	PRIMARY KEY (idS) ,
@@ -180,9 +135,6 @@ CREATE TABLE seq_primaire(
 );
 
 
-#------------------------------------------------------------
-# Table: seq_alt
-#------------------------------------------------------------
 CREATE TABLE seq_alt(
 	idS  INTEGER NOT NULL ,
 	PRIMARY KEY (idS) ,
@@ -191,27 +143,18 @@ CREATE TABLE seq_alt(
 );
 
 
-#------------------------------------------------------------
-# Table: Modif_posttrad
-#------------------------------------------------------------
 CREATE TABLE Modif_posttrad(
-	idM  INTEGER autoincrement NOT NULL ,
+	idM  INTEGER AUTO_INCREMENT NOT NULL ,
 	PRIMARY KEY (idM)
 );
 
 
-#------------------------------------------------------------
-# Table: Type_interaction
-#------------------------------------------------------------
 CREATE TABLE Type_interaction(
-	idTI  INTEGER autoincrement NOT NULL ,
+	idTI  INTEGER AUTO_INCREMENT NOT NULL ,
 	PRIMARY KEY (idTI)
 );
 
 
-#------------------------------------------------------------
-# Table: Observation
-#------------------------------------------------------------
 CREATE TABLE Observation(
 	idL  INTEGER NOT NULL ,
 	idC  INTEGER NOT NULL ,
@@ -224,9 +167,6 @@ CREATE TABLE Observation(
 );
 
 
-#------------------------------------------------------------
-# Table: implication
-#------------------------------------------------------------
 CREATE TABLE implication(
 	idM  INTEGER NOT NULL ,
 	idS  INTEGER NOT NULL ,
@@ -239,9 +179,6 @@ CREATE TABLE implication(
 );
 
 
-#------------------------------------------------------------
-# Table: detection
-#------------------------------------------------------------
 CREATE TABLE detection(
 	idMD  INTEGER NOT NULL ,
 	idI   INTEGER NOT NULL ,
@@ -252,9 +189,6 @@ CREATE TABLE detection(
 );
 
 
-#------------------------------------------------------------
-# Table: signature
-#------------------------------------------------------------
 CREATE TABLE signature(
 	ordre  INTEGER NOT NULL ,
 	idC    INTEGER NOT NULL ,
@@ -266,9 +200,6 @@ CREATE TABLE signature(
 );
 
 
-#------------------------------------------------------------
-# Table: citation
-#------------------------------------------------------------
 CREATE TABLE citation(
 	idA  INTEGER NOT NULL ,
 	idM  INTEGER NOT NULL ,
@@ -281,9 +212,6 @@ CREATE TABLE citation(
 );
 
 
-#------------------------------------------------------------
-# Table: Travaille
-#------------------------------------------------------------
 CREATE TABLE Travaille(
 	idC  INTEGER NOT NULL ,
 	idL  INTEGER NOT NULL ,
@@ -294,9 +222,6 @@ CREATE TABLE Travaille(
 );
 
 
-#------------------------------------------------------------
-# Table: modification
-#------------------------------------------------------------
 CREATE TABLE modification(
 	idS            INTEGER NOT NULL ,
 	idS_Sequences  INTEGER NOT NULL ,
