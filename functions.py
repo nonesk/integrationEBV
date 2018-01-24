@@ -26,8 +26,7 @@ def column_subset(tuples_dict, names):
         result.append(tuple(subset))
     return result
 
-def insert_tuples(db, table, tuple_list, col_subset=[]):
-    print(tuple_list)
+def make_query(table, tuple_list, col_subset=[]):
     insert_list = ",".join(map(str,tuple_list))
     if col_subset:
         query = "INSERT INTO {table} {col_subset} VALUES {values}".format(
@@ -35,7 +34,11 @@ def insert_tuples(db, table, tuple_list, col_subset=[]):
     else:
         query = "INSERT INTO {table} VALUES {values}".format(table=table, values=insert_list)
     query = query.replace('None', 'NULL')
+    return query
 
+def insert_tuples(db, table, tuple_list, col_subset=[]):
+    print(tuple_list)
+    query = make_query(table, tuple_list, col_subset)
     print(query)
     db.query_boolean(query)
 

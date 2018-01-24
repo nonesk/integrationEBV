@@ -55,7 +55,7 @@ protein_names = ( None, 'product', 'poids', 'longueur', 'uniprotKBswissprot', 'U
 insert_prot = column_subset(updated_trans, protein_names)
 
 print(insert_prot)
-insert_tuples(db, 'PROTEINES', insert_prot)
+insert_tuples(db, 'PROTEINS', insert_prot)
 
 sequence_names=(None, 'translation', 'protein_id')
 insert_seq = column_subset(updated_trans, sequence_names)
