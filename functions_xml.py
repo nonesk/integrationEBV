@@ -21,8 +21,8 @@ def build_entries_list(db):
 
         # Récupération de la taille et de la mass
         sequence = entry.findall('sequence')[0]
-        entry_dict["length"]=sequence.attrib['length']
-        entry_dict["mass"]=sequence.attrib['mass']
+        entry_dict["longueur"]=sequence.attrib['length']
+        entry_dict["poids"]=sequence.attrib['mass']
 
         # Récupération des noms
         protein_name = entry.findall('protein/recommendedName')[0]
