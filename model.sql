@@ -27,12 +27,12 @@ CREATE TABLE Conditions(
 
 
 CREATE TABLE Gene(
-	idG          INTEGER AUTO_INCREMENT NOT NULL ,
-	nom          TEXT NOT NULL ,
-	tag_locus    TEXT NOT NULL ,
-	start        INTEGER ,
-	end          INTEGER ,
-	ref_uniprot  TEXT ,
+	idG         INTEGER AUTO_INCREMENT NOT NULL ,
+	nom         TEXT NOT NULL ,
+	locus_tag   TEXT ,
+	start       TEXT ,
+	end         TEXT ,
+	uniprot_id  TEXT ,
 	PRIMARY KEY (idG)
 );
 
@@ -152,6 +152,16 @@ CREATE TABLE Modif_posttrad(
 CREATE TABLE Type_interaction(
 	idTI  INTEGER AUTO_INCREMENT NOT NULL ,
 	PRIMARY KEY (idTI)
+);
+
+
+CREATE TABLE UniprotRef(
+	accession  TEXT NOT NULL ,
+	latest     INTEGER NOT NULL ,
+	idP        INTEGER NOT NULL ,
+	PRIMARY KEY (accession) ,
+	
+	FOREIGN KEY (idP) REFERENCES Proteines(idP)
 );
 
 
