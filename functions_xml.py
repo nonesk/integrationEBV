@@ -1,8 +1,5 @@
 import wrappers.wrapper_xml as wxml
 
-
-db = wxml.WrapperXML('sources/niktamere.xml')
-
 def build_entries_list(db):
     """Construit une liste de dictionnaire contenant les informations
     d'une entrée de la base de donnée xml.
