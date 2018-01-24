@@ -42,8 +42,8 @@ def make_insert_script(db, table, insert_list, fhandle=sys.stdout):
 # Transcripts BORDEL
 
 def update_transcript_dict(db, transcripts):
-    gene_name = transcripts['gene']
-    gene_id = db.query_select("SELECT * FROM GENES WHERE nom = '{gene}';".format(gene=gene_name))
+    uniprot_id = transcripts['GeneID']
+    gene_id = db.query_select("SELECT * FROM GENES WHERE uniprot_id = '{gene}';".format(gene=uniprot_id))
     transcripts['idG'] = gene_id[0][0]
     return transcripts
 

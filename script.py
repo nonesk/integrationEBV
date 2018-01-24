@@ -8,12 +8,12 @@ db = wsql.WrapperSQLite('kanar.db')
 # Import Genbank
 genbank = wsql.WrapperSQLite('sources/genbank.sqlite')
 
-# # Genes
-# genes = genbank.query_select("SELECT * FROM Genes")
-# gene_names = ('gene_id', 'start', 'end', 'strand', 'nom', 'uniprot_id', 'locus_tag', 'synonym')
-# genes = tuples_dict(genes, gene_names)
-# insert_genes = column_subset(genes, ['gene_id', 'nom', 'locus_tag', 'start', 'end', 'uniprot_id'])
-# insert_tuples(db, 'GENES', insert_genes)
+# Genes
+genes = genbank.query_select("SELECT * FROM Genes")
+gene_names = ('gene_id', 'start', 'end', 'strand', 'nom', 'uniprot_id', 'locus_tag', 'synonym')
+genes = tuples_dict(genes, gene_names)
+insert_genes = column_subset(genes, ['gene_id', 'nom', 'locus_tag', 'start', 'end', 'uniprot_id'])
+insert_tuples(db, 'GENES', insert_genes)
 
 # Protéines & transcrits
 transcripts = genbank.query_select("SELECT * FROM Transcripts")
@@ -49,7 +49,7 @@ transcripts_real_names = ('CDS_id', 'product', 'idG', 'protein_id')
 insert_trans = column_subset(updated_trans, transcripts_real_names)
 
 print(insert_trans)
-#insert_tuples(db, 'TRANSCRIPTS', insert_trans)
+insert_tuples(db, 'TRANSCRIPTS', insert_trans)
 
 protein_names = ('protein_id', 'product', 'poids', 'longueur', 'uniprotKBswissprot', 'UniProtKBTrEMBL', 'GOA', 'InterPro', 'CDS_id')
 insert_prot = column_subset(updated_trans, protein_names)
