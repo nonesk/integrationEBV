@@ -2,11 +2,10 @@ import wrappers.wrapper_sql as wsql
 from subprocess import call, Popen
 from functions import *
 
-
+# CONNECT
 db = wsql.WrapperSQLite('kanar.db')
-
-# Import Genbank
 genbank = wsql.WrapperSQLite('sources/genbank.sqlite')
+
 
 # Genes
 genes = genbank.query_select("SELECT * FROM Genes")
@@ -43,6 +42,7 @@ updated_trans = []
 for t in transcripts_raw:
     tx = update_transcript_dict(db, t)
     ty = update_prot_dict(db, tx)
+    ty['seq_id'] = None
     updated_trans.append(ty)
 
 transcripts_real_names = ('CDS_id', 'product', 'idG', 'protein_id')
@@ -51,8 +51,13 @@ insert_trans = column_subset(updated_trans, transcripts_real_names)
 print(insert_trans)
 insert_tuples(db, 'TRANSCRIPTS', insert_trans)
 
-protein_names = ('protein_id', 'product', 'poids', 'longueur', 'uniprotKBswissprot', 'UniProtKBTrEMBL', 'GOA', 'InterPro', 'CDS_id')
+protein_names = ( None, 'product', 'poids', 'longueur', 'uniprotKBswissprot', 'UniProtKBTrEMBL', 'GOA', 'InterPro', 'CDS_id', 'protein_id')
 insert_prot = column_subset(updated_trans, protein_names)
 
 print(insert_prot)
 insert_tuples(db, 'PROTEINES', insert_prot)
+
+sequence_names=(None, 'translation', 'protein_id')
+insert_seq = column_subset(updated_trans, sequence_names)
+print(insert_seq)
+insert_tuples(db, 'SEQUENCES', insert_seq)
