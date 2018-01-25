@@ -79,3 +79,4 @@ insert_data_uniprot = column_subset(prot_dict, uniprot_names)
 update_prot_xml(db, prot_dict)
 
 insert_acc(db, 'UNIPROT_ACC', 'PROTEINS', prot_dict)
+
