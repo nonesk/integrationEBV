@@ -3,6 +3,7 @@ from subprocess import call, Popen
 from functions import *
 from functions_xml import *
 
+rebuild_db()
 # CONNECT
 db = wsql.WrapperSQLite('kanar.db')
 genbank = wsql.WrapperSQLite('sources/genbank.sqlite')
@@ -57,15 +58,16 @@ protein_names = ( None, 'product', 'poids', 'longueur', 'uniprotKBswissprot', 'U
 insert_prot = column_subset(updated_trans, protein_names)
 
 print(insert_prot)
-insert_tuples(db, 'PROTEINES', insert_prot)
+insert_tuples(db, 'PROTEINS', insert_prot)
 
 sequence_names=(None, 'translation', 'protein_id')
 insert_seq = column_subset(updated_trans, sequence_names)
 print(insert_seq)
 insert_tuples(db, 'SEQUENCES', insert_seq)
 
-# prot_dict = build_entries_list(uniprot)
-# uniprot_names = ('accession', 'fullName', 'poids', 'longueur', None, None, None, None, None, None)
-# insert_data_uniprot = column_subset(prot_dict, proteins_names)
-# print(insert_data_uniprot)
-# insert_tuples(db, 'PROTEINES', insert_data_uniprot)
+###### ! Prendre en compte cas où une protéine n'aurait aucune correspondance !
+prot_dict = build_entries_list(uniprot)
+uniprot_names = ('accession', 'fullName', 'poids', 'longueur', None, None, None, None, None, None)
+insert_data_uniprot = column_subset(prot_dict, uniprot_names)
+print(insert_data_uniprot)
+insert_tuples(db, 'PROTEINS', insert_data_uniprot)

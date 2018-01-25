@@ -12,7 +12,7 @@ def tuples_dict(tuples_list, names):
     return result
 
 def column_subset(tuples_dict, names):
-    """Depuis une liste de dico de resultats, 
+    """Depuis une liste de dico de resultats,
     crée une liste de liste avec les données correspondant aux names, dans l'ordre
     """
     result=[]
@@ -27,7 +27,7 @@ def column_subset(tuples_dict, names):
     return result
 
 def insert_tuples(db, table, tuple_list, col_subset=[]):
-    print(tuple_list)
+    # print(tuple_list)
     insert_list = ",".join(map(str,tuple_list))
     if col_subset:
         query = "INSERT INTO {table} {col_subset} VALUES {values}".format(
