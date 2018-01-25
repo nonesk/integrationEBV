@@ -121,6 +121,8 @@ CREATE TABLE SEQUENCES(
 
 CREATE TABLE INTERACTIONS(
 	idI           INTEGER NOT NULL ,
+	intact        TEXT ,
+	imex          TEXT ,
 	idP           INTEGER ,
 	idP_PROTEINS  INTEGER ,
 	idTI          INTEGER ,

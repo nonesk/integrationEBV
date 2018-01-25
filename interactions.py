@@ -55,9 +55,9 @@ def process_interaction(data, db=db):
         })
 
         insert_dict.update({
-            'idP':"<<<SELECT idP FROM PROTEINS WHERE UniProtKBTrEMBL='{ida}'>>>".format(
+            'idP':"<<<SELECT idP FROM UNIPROT_ACC WHERE accession='{ida}'>>>".format(
                 ida=insert_dict['ida']),
-            'idP_PROTEINS': "<<<SELECT idP FROM PROTEINS WHERE UniProtKBTrEMBL='{idb}'>>>".format(
+            'idP_PROTEINS': "<<<SELECT idP FROM UNIPROT_ACC WHERE accession='{idb}'>>>".format(
                 idb=insert_dict['idb']),
             'idTI' : "<<<SELECT idTI FROM INTERACTION_TYPES WHERE psimi = '{psimi}'>>>".format(
                 psimi = insert_dict['psimitype'])
@@ -80,7 +80,7 @@ def diff_prot_ids(data):
     for d in data:
         ids.add(d['idA'][0].split(':')[1])
         ids.add(d['idB'][0].split(':')[1])
-    dbids = db.query_select("SELECT DISTINCT UniProtKBTrEMBL FROM PROTEINS")
+    dbids = db.query_select("SELECT DISTINCT accession FROM UNIPROT_ACC")
     dbids = tuple(map(lambda a:a[0], dbids))
     print(dbids)
     return ids - set(dbids)
@@ -89,10 +89,16 @@ def insert_missing(ids):
     insert_list = []
     for i in ids:
         insert_list.append("('{i}')".format(i=i))
-    insert_list= ",".join(insert_list)
-    query = "INSERT INTO PROTEINS (UniProtKBTrEMBL) VALUES {insert}".format(insert=insert_list)
+    insert= ",".join(insert_list)
+    query = "INSERT INTO PROTEINS (GOA) VALUES {insert}".format(insert=insert)
     print(query)
     db.query_boolean(query)
+    for goa in insert_list:
+        query = "INSERT INTO UNIPROT_ACC VALUES ({goa}, (SELECT idP FROM PROTEINS WHERE GOA={goa}))".format(
+            goa=goa.strip('(').strip(')')
+        )
+        print(query)
+        db.query_boolean(query)
 
 interactions = wjson.WrapperJSON("sources/interactions-PMID-17446270.json")
 
@@ -103,3 +109,5 @@ process_interaction_types(data)
 #process_interaction(data)
 
 insert_missing(diff_prot_ids(data))
+
+process_interaction(data)

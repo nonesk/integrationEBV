@@ -68,8 +68,20 @@ insert_seq = column_subset(updated_trans, sequence_names)
 print(insert_seq)
 insert_tuples(db, 'SEQUENCES', insert_seq)
 
+###### ! Prendre en compte cas où une protéine n'aurait aucune correspondance !
 prot_dict = build_entries_list(uniprot)
+print(prot_dict)
+uniprot_names = ('accession', 'fullName', 'poids', 'longueur', None, None, None, None, None, None)
+insert_data_uniprot = column_subset(prot_dict, uniprot_names)
+#print(insert_data_uniprot)
+#insert_tuples(db, 'PROTEINS', insert_data_uniprot)
 
+<<<<<<< HEAD
 update_prot_xml(db, prot_dict)
 
+
+=======
+# update_prot_xml(db, prot_dict)
+
 insert_acc(db, 'UNIPROT_ACC', 'PROTEINS', prot_dict)
+>>>>>>> addc7fd12593b540ec9149c9acf568552a86c7cf
