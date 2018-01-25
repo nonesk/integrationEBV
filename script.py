@@ -73,3 +73,4 @@ prot_dict = build_entries_list(uniprot)
 update_prot_xml(db, prot_dict)
 
 insert_acc(db, 'UNIPROT_ACC', 'PROTEINS', prot_dict)
+
