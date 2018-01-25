@@ -44,4 +44,13 @@ def update_prot_xml(db, prot_dict):
         print(query)
         query=query.replace('None', 'NULL')
         db.query_boolean(query)
-
+def insert_acc(db, table_acc, table_prot, uniprot_dict):
+    tuples_set = set()
+    for entry in uniprot_dict:
+        idP = map_acc2idp(db, entry)
+        for accession in entry['accession']:
+            tuples = (accession, idP)
+            tuples_set.add(tuples)
+        print(tuples)
+    tuples_list = list(tuples_set)
+    insert_tuples(db, table_acc, tuple(tuples_list))
