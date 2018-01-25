@@ -70,6 +70,7 @@ def rebuild_db():
 
     call(["sed", "-i", "/^#/d", "model.sql"])
     call(['sed', "-i", 's/autoincrement/AUTO_INCREMENT/g', "model.sql"])
+    call(['sed', "-i", 's/idT *INTEGER NOT NULL/idT INTEGER/g', "model.sql"])
 
     db = wsql.WrapperSQLite('kanar.db')
     db.load_schema_sql('model.sql')

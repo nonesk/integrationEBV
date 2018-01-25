@@ -78,14 +78,19 @@ def process_interaction(data, db=db):
 def diff_prot_ids(data):
     ids = set()
     for d in data:
-        ids.add((d['idA'][0].split(':')[1],))
-        ids.add((d['idB'][0].split(':')[1],))
+        ids.add(d['idA'][0].split(':')[1])
+        ids.add(d['idB'][0].split(':')[1])
     dbids = db.query_select("SELECT DISTINCT UniProtKBTrEMBL FROM PROTEINS")
+    dbids = tuple(map(lambda a:a[0], dbids))
     print(dbids)
     return ids - set(dbids)
 
 def insert_missing(ids):
-    query = "INSERT INTO PROTEINS (UniProtKBTrEMBL) VALUES {insert}".format(insert=tuple(ids))
+    insert_list = []
+    for i in ids:
+        insert_list.append("('{i}')".format(i=i))
+    insert_list= ",".join(insert_list)
+    query = "INSERT INTO PROTEINS (UniProtKBTrEMBL) VALUES {insert}".format(insert=insert_list)
     print(query)
     db.query_boolean(query)
 

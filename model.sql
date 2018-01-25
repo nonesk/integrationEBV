@@ -46,7 +46,7 @@ CREATE TABLE Maladies(
 
 CREATE TABLE PROTEINS(
 	idP                 INTEGER NOT NULL ,
-	nom                 TEXT NOT NULL ,
+	nom                 TEXT ,
 	poids               REAL ,
 	longueur            INTEGER ,
 	UniProtKBSwissProt  TEXT ,
@@ -54,7 +54,7 @@ CREATE TABLE PROTEINS(
 	GOA                 TEXT ,
 	InterPro            TEXT ,
 	RefSeq_id           TEXT ,
-	idT                 INTEGER NOT NULL ,
+	idT INTEGER ,
 	PRIMARY KEY (idP) ,
 	
 	FOREIGN KEY (idT) REFERENCES TRANSCRIPTS(idT)
