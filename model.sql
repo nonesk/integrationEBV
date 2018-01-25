@@ -120,6 +120,8 @@ CREATE TABLE SEQUENCES(
 
 CREATE TABLE INTERACTIONS(
 	idI           INTEGER NOT NULL ,
+	intact        TEXT ,
+	imex          TEXT ,
 	idP           INTEGER ,
 	idP_PROTEINS  INTEGER ,
 	idTI          INTEGER ,
@@ -173,7 +175,7 @@ CREATE TABLE implication(
 );
 
 
-CREATE TABLE detection(
+CREATE TABLE INTERACT_DETECTION(
 	idMD  INTEGER NOT NULL ,
 	idI   INTEGER NOT NULL ,
 	PRIMARY KEY (idMD,idI) ,
