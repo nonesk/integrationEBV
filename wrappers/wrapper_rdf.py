@@ -15,7 +15,7 @@ WrapperRDF class for parsing and querying RDF data
 
 class WrapperRDF:
 
-    def __init__(self, file_rdf, format_rdf) :
+    def __init__(self, file_rdf, format_rdf='n3') :
         self.triples = Graph()
         self.triples.parse(file_rdf, format=format_rdf)
 

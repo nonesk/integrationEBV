@@ -77,3 +77,5 @@ insert_data_uniprot = column_subset(prot_dict, uniprot_names)
 #insert_tuples(db, 'PROTEINS', insert_data_uniprot)
 
 update_prot_xml(db, prot_dict)
+
+
