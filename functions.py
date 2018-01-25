@@ -12,7 +12,7 @@ def tuples_dict(tuples_list, names):
     return result
 
 def column_subset(tuples_dict, names):
-    """Depuis une liste de dico de resultats, 
+    """Depuis une liste de dico de resultats,
     crée une liste de liste avec les données correspondant aux names, dans l'ordre
     """
     result=[]
