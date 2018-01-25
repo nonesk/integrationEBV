@@ -10,5 +10,5 @@ genbank = wsql.WrapperSQLite('sources/genbank.sqlite')
 uniprot = wxml.WrapperXML('sources/niktamere.xml')
 
 prot_dict = build_entries_list(uniprot)
-
+print(prot_dict)
 print(map_acc2idp(db, prot_dict[38]))

@@ -56,7 +56,7 @@ insert_trans = column_subset(updated_trans, transcripts_real_names)
 print(insert_trans)
 insert_tuples(db, 'TRANSCRIPTS', insert_trans)
 
-protein_names = ( None, 'product', 'poids', 'longueur', 'uniprotKBswissprot', 'UniProtKBTrEMBL', 'GOA', 'InterPro', 'CDS_id', 'protein_id')
+protein_names = ( None, 'product', None, 'poids', 'longueur', 'uniprotKBswissprot', 'UniProtKBTrEMBL', 'GOA', 'InterPro', 'CDS_id', 'protein_id')
 insert_prot = column_subset(updated_trans, protein_names)
 
 print(insert_prot)
@@ -75,3 +75,5 @@ uniprot_names = ('accession', 'fullName', 'poids', 'longueur', None, None, None,
 insert_data_uniprot = column_subset(prot_dict, uniprot_names)
 #print(insert_data_uniprot)
 #insert_tuples(db, 'PROTEINS', insert_data_uniprot)
+
+update_prot_xml(db, prot_dict)

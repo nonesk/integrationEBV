@@ -1,4 +1,5 @@
 import wrappers.wrapper_xml as wxml
+from functions import *
 
 def build_entries_list(db):
     """Construit une liste de dictionnaire contenant les informations
@@ -35,6 +36,12 @@ def build_entries_list(db):
     return entries_list
 
 
-
-
+def update_prot_xml(db, prot_dict):
+    for entry in prot_dict:
+        idP = map_acc2idp(db, entry)
+        query = 'UPDATE PROTEINS SET fullName="{fname}", poids={poids}, longueur={longueur} WHERE idP={idp}'.format(
+            fname=entry['fullName'], poids=float(entry['poids']), longueur=int(entry['longueur']), idp=idP)
+        print(query)
+        query=query.replace('None', 'NULL')
+        db.query_boolean(query)
 
