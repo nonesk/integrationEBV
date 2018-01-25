@@ -81,3 +81,8 @@ def update_goa(db):
     db.query_boolean(query)
     query = "UPDATE PROTEINS SET GOA=(SELECT UniProtKBSwissProt FROM PROTEINS p2 WHERE p2.idP = PROTEINS.idP) WHERE PROTEINS.idP = idP AND PROTEINS.UniProtKBTrEMBL IS NULL"
     db.query_boolean(query)
+
+def map_acc2idp(db, data):
+    query = "SELECT idP FROM PROTEINS WHERE GOA IN {accesion_list}".format(accesion_list=tuple(data['accession']))
+    res = db.query_select(query)
+    return res[0][0]
