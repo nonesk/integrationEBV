@@ -17,6 +17,8 @@ genes = tuples_dict(genes, gene_names)
 insert_genes = column_subset(genes, ['gene_id', 'nom', 'locus_tag', 'start', 'end', 'uniprot_id'])
 insert_tuples(db, 'GENES', insert_genes)
 
+
+
 # Protéines & transcrits
 transcripts = genbank.query_select("SELECT * FROM Transcripts")
 transcripts_names = (
@@ -59,6 +61,7 @@ insert_prot = column_subset(updated_trans, protein_names)
 
 print(insert_prot)
 insert_tuples(db, 'PROTEINS', insert_prot)
+update_goa(db)
 
 sequence_names=(None, 'translation', 'protein_id')
 insert_seq = column_subset(updated_trans, sequence_names)
@@ -69,5 +72,5 @@ insert_tuples(db, 'SEQUENCES', insert_seq)
 prot_dict = build_entries_list(uniprot)
 uniprot_names = ('accession', 'fullName', 'poids', 'longueur', None, None, None, None, None, None)
 insert_data_uniprot = column_subset(prot_dict, uniprot_names)
-print(insert_data_uniprot)
-insert_tuples(db, 'PROTEINS', insert_data_uniprot)
+#print(insert_data_uniprot)
+#insert_tuples(db, 'PROTEINS', insert_data_uniprot)

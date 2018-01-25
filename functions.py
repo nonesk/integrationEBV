@@ -74,3 +74,10 @@ def rebuild_db():
 
     db = wsql.WrapperSQLite('kanar.db')
     db.load_schema_sql('model.sql')
+
+
+def update_goa(db):
+    query = "UPDATE PROTEINS SET GOA=(SELECT UniProtKBTrEMBL FROM PROTEINS p2 WHERE p2.idP = PROTEINS.idP) WHERE PROTEINS.idP = idP AND PROTEINS.UniProtKBSwissProt IS NULL"
+    db.query_boolean(query)
+    query = "UPDATE PROTEINS SET GOA=(SELECT UniProtKBSwissProt FROM PROTEINS p2 WHERE p2.idP = PROTEINS.idP) WHERE PROTEINS.idP = idP AND PROTEINS.UniProtKBTrEMBL IS NULL"
+    db.query_boolean(query)
